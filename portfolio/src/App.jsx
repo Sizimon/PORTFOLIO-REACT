@@ -6,7 +6,7 @@ function App() {
   const [theme, setTheme] = useState('light')
 
   return (
-    <div className='bg-MainLight dark:bg-MainDark'>
+    <div className='bg-MainDark'>
       <SmoothScroll />
     </div>
   )
