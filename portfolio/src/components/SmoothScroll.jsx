@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const SmoothScroll = () => {
@@ -29,19 +30,18 @@ export const SmoothScroll = () => {
 //     );
 // };
 
-const SECTION_HEIGHT = 1500;
+const SECTION_HEIGHT = 1000;
 
 const Hero = () => {
     return (
         <div 
         className="relative w-full bg-MainDark"
         style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)`}}>
-            <h1 className='text-MainLight font-WorkSans uppercase text-4xl text-center pt-64 m-auto'>Szymon Samus</h1>
-            <h2 className='text-MainLight font-Anton uppercase text-5xl text-center m-auto'>Frontend/Fullstack Developer</h2>
-
+            <h1 className='text-MainLight font-WorkSans uppercase text-4xl text-center pt-80 m-auto'>Szymon Samus</h1>
+            <h2 className='text-MainLight font-Anton uppercase text-5xl text-center m-auto pb-[500px]'>Frontend/Fullstack Developer</h2>
+            <ParallaxAbout />
             <div className='absolute bottom-0 left-0 right-0
             h-96 bg-gradient-to-b from from-MainLight/0 to-MainLight' 
-
             />
         </div>
     )
@@ -60,38 +60,82 @@ const Hero = () => {
 //     )
 // }
 
-const ParallaxInfo = () => {
+const ParallaxAbout = () => {
+    const targetRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+    });
+
     return (
-    <div className='flex mx-auto max-w-5xl px-4'>
-        <ParallaxTitle 
-        alt="A vector of a sun"
+    <motion.div 
+    className='flex flex-col items-center mx-auto max-w-5xl px-4'
+    ref={targetRef}
+    initial={{
+        x: 1000,
+    }}
+    whileInView={{
+        x: 0,
+    }}
+    transition={{duration: 3}}
+    >
+        <ParallaxHeader
+        text="About"
+        className="uppercase font-Anton text-MainLight text-5xl"
         />
-    </div>
+        <ParallaxDescription 
+        text="My name is Szymon, I am a Frontend Developer with a passion for bringing sleek user interfaces to life."
+        className="font-WorkSans text-MainLight text-2xl text-center"
+        />
+    </motion.div>
 );
 }
 
-const ParallaxTitle = ({
-    text,
-    className,
-    start,
-    end,
-}) => {
- return (
-    <motion.img 
-        src={src}
-        alt={alt}
-        className={className}
-    />
- )
-}
-
-const ParallaxText = ({
+const ParallaxHeader = ({
     text,
     className,
     start,
     end,  
 }) => {
+    const { scrollY } = useScroll();
+
+    const opacity = useTransform(
+        scrollY,
+        [0, 500],
+        [0, 1])
     return (
-        
+        <motion.header
+        className={className}
+        style={{
+            opacity,
+        }}
+        >
+        {text}
+        </motion.header>
     )
 }
+
+const ParallaxDescription = ({
+    text,
+    className,
+    start,
+    end,  
+}) => {
+    const { scrollY } = useScroll();
+
+    const opacity = useTransform(
+        scrollY,
+        [0, 500],
+        [0, 1]
+    )
+    return (
+        <motion.span
+        className={className}
+        style={{
+            opacity,
+        }}
+        >
+        {text}
+        </motion.span>
+    )
+}
+
