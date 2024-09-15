@@ -6,6 +6,7 @@ export const SmoothScroll = () => {
     return (
         <div className="bg-MainLight">
             <Hero />
+            <Projects />
             <div className="h-screen" />
         </div>
     );
@@ -22,14 +23,118 @@ const Hero = () => {
             <h2 className='text-MainLight font-Anton uppercase text-5xl text-center m-auto pb-[400px]'>Frontend Developer</h2>
             <ParallaxAbout />
             <ParallaxTechStack />
-            <div className='absolute bottom-0 left-0 right-0
-            h-96 bg-gradient-to-b from from-MainLight/0 to-MainLight'
+            <div
+            className='absolute bottom-0 left-0 right-0
+            h-[500px] bg-gradient-to-b from from-MainLight/0 to-MainLight'
             />
         </div>
     )
 };
 
-// ABOUT INTRO
+// PROJECT HEADER GRID VARIANTS
+
+const ProjectHeaderGridVariants = {
+    hidden: {
+        opacity: 0
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+        },
+    },
+};
+
+const ProjectHeaderGridItems = {
+    hidden: {
+        opacity: 0,
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            duration: 0.3,
+        },
+    },
+};
+
+const Projects = () => {
+    return (
+       <motion.div 
+       className='relative w-full overflow-x-hidden'
+       style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}
+       >
+            <motion.div
+            className='grid grid-cols-8 gap-2 w-2/4 justify-center items-center mx-auto'
+            variants={ProjectHeaderGridVariants}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{
+                        once: true,
+                        margin: '-150px',
+                    }}
+
+            >
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='P'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='R'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='O'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='J'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='E'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='C'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='T'
+                />
+                <ProjectHeadingLetters 
+                variants={ProjectHeaderGridItems}
+                className='text-MainDark text-7xl font-WorkSans'
+                text='S'
+                />
+            </motion.div>
+       </motion.div> 
+    )
+}
+
+const ProjectHeadingLetters = ({
+    className,
+    variants,
+    text,
+}) => {
+    return (
+    <motion.span
+    className={className}
+    variants={variants}
+    >
+        {text}
+    </motion.span>
+    )
+}
+
+// ABOUT INTRO (HERO COMPONENTS)
 
 const ParallaxAbout = () => {
     const targetRef = useRef(null);
@@ -56,8 +161,6 @@ const ParallaxAbout = () => {
 const ParallaxHeader = ({
     text,
     className,
-    start,
-    end,
 }) => {
     const { scrollY } = useScroll();
 
@@ -183,6 +286,9 @@ const ParallaxTechStack = () => {
                     variants={gridVariants}
                     initial="hidden"
                     whileInView="show"
+                    viewport={{
+                        once: true,
+                    }}
                     className='grid grid-cols-5 gap-4'
                 >
                     <motion.span
@@ -244,36 +350,7 @@ const ParallaxTechHeader = ({
                 }}
             >
                 {text}
-
-                {/* <FaHtml5 />
-
-<FaReact />
-
-<FaCss3Alt />
-
-<FaNodeJs /> */}
             </motion.header>
         </>
     )
 }
-
-const ParallaxIcon = ({
-    className,
-    text,
-    initial,
-    whileInView,
-    transition
-}) => {
-    return (
-        <motion.span
-            className={className}
-            text={text}
-            initial={initial}
-            whileInView={whileInView}
-            transition={transition}
-        >
-            {text}
-        </motion.span>
-    )
-}
-
