@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Taskmanager from '../assets/image/Taskmanager.png';
 
 const SECTION_HEIGHT = 1500;
 
@@ -31,7 +32,6 @@ const Projects = () => {
     return (
        <motion.div 
        className='relative w-full overflow-x-hidden'
-       style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}
        >
             <motion.div
             className='grid grid-cols-8 gap-2 w-2/4 justify-center items-center mx-auto pb-96'
@@ -98,6 +98,7 @@ const Projects = () => {
                 All data stored in a PostgreSQL database.
                 '
                 className='flex flex-row justify-start items-center w-full px-20 pb-96'
+                src={Taskmanager}
                 />
                 <ProjectItem
                 title='Task Manager App'
@@ -108,7 +109,20 @@ const Projects = () => {
                 All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
                 All data stored in a PostgreSQL database.
                 '
-                className='flex flex-row-reverse items-center w-full px-20'
+                className='flex flex-row-reverse items-center w-full px-20 pb-96'
+                src={Taskmanager}
+                />
+                <ProjectItem
+                title='Task Manager App'
+                text='
+                A task manager app that allows users to create, update, and delete tasks.
+                The app includes a sleek calendar view and a user-friendly interface. 
+                Key features include ability to categorise tasks, set deadlines, and add notes.
+                All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
+                All data stored in a PostgreSQL database.
+                '
+                className='flex flex-row justify-start items-center w-full px-20 pb-96'
+                src={Taskmanager}
                 />
             </motion.div>
        </motion.div> 
@@ -138,8 +152,8 @@ const ProjectItem = ({
 }) => {
     return (
         <motion.section className={className}>
-            <motion.div>
-                <h2 className='text-MainDark font-Anton text-5xl uppercase text-center'>{title}</h2>
+            <motion.div className='px-10'>
+                <h2 className='text-MainDark font-Anton text-5xl uppercase text-center pb-6'>{title}</h2>
                 <p className='text-MainDark font-WorkSans text-2xl text-center'>{text}</p>
             </motion.div>
             <motion.div>
