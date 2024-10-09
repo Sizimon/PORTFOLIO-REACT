@@ -86,9 +86,104 @@ const Projects = () => {
                 />
             </motion.div>
             <motion.div
-            className='flex flex-col justify-center w-full mx-auto'
+            className='flex flex-row justify-center w-full mx-auto'
             >
-                <ProjectItem
+                <motion.div
+                className='flex relative mx-[1px]'
+                >
+                    <motion.div
+                    className='absolute flex justify-center items-center text-start bg-MainDark w-full h-full'
+                    initial={{ 
+                        opacity: 1,
+                        y: 0,
+                    }}
+                    whileHover={{
+                        opacity: 0,
+                        y: 50,
+                        duration: 0.5,
+                    }}
+                    >
+                        <h1 className='font-WorkSans text-MainLight uppercase text-3xl'>Full-stack: Task Manager</h1>
+                    </motion.div>
+                    <ProjectItem
+                    title='Task Manager App'
+                    text='
+                    A task manager app that allows users to create, update, and delete tasks.
+                    The app includes a sleek calendar view and a user-friendly interface. 
+                    Key features include ability to categorise tasks, set deadlines, and add notes.
+                    All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
+                    All data stored in a PostgreSQL database.
+                    '
+                    className='flex flex-col px-4 justify-start items-center w-full'
+                    src={Taskmanager}
+                    />
+                </motion.div>
+                <motion.div
+                className='flex relative mr-[1px]'
+                >
+                    <motion.div
+                    className='absolute flex justify-center items-center text-center bg-MainDark w-full h-full'
+                    initial={{ 
+                        opacity: 1,
+                        y: 0,
+                    }}
+                    whileHover={{
+                        opacity: 0,
+                        y: 50,
+                        duration: 0.5,
+                    }}
+                    viewport={{
+                        once: true,
+                    }}
+                    >
+                        <h1 className='font-WorkSans text-MainLight uppercase text-3xl'>Front-End: Restaurant Webiste</h1>
+                    </motion.div>
+                    <ProjectItem
+                    title='Task Manager App'
+                    text='
+                    A task manager app that allows users to create, update, and delete tasks.
+                    The app includes a sleek calendar view and a user-friendly interface. 
+                    Key features include ability to categorise tasks, set deadlines, and add notes.
+                    All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
+                    All data stored in a PostgreSQL database.
+                    '
+                    className='flex flex-col px-4 justify-start items-center w-full'
+                    src={Taskmanager}
+                    />
+                </motion.div>
+                <motion.div
+                className='flex relative mr-[1px]'
+                >
+                    <motion.div
+                    className='absolute flex justify-center items-center text-start bg-MainDark w-full h-full'
+                    initial={{ 
+                        opacity: 1,
+                        y: 0,
+                    }}
+                    whileHover={{
+                        opacity: 0,
+                        y: 50,
+                        transition: {
+                            duration: 0.5,
+                        }
+                    }}
+                    >
+                        <h1 className='font-WorkSans text-MainLight uppercase text-3xl'>Front-End: Weather App</h1>
+                    </motion.div>
+                    <ProjectItem
+                    title='Task Manager App'
+                    text='
+                    A task manager app that allows users to create, update, and delete tasks.
+                    The app includes a sleek calendar view and a user-friendly interface. 
+                    Key features include ability to categorise tasks, set deadlines, and add notes.
+                    All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
+                    All data stored in a PostgreSQL database.
+                    '
+                    className='flex flex-col px-4 justify-start items-center w-full'
+                    src={Taskmanager}
+                    />
+                </motion.div>   
+                {/* <ProjectItem
                 title='Task Manager App'
                 text='
                 A task manager app that allows users to create, update, and delete tasks.
@@ -97,7 +192,7 @@ const Projects = () => {
                 All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
                 All data stored in a PostgreSQL database.
                 '
-                className='flex flex-row justify-start items-center w-full px-20 pb-96'
+                className='flex flex-col px-4 items-center w-full'
                 src={Taskmanager}
                 />
                 <ProjectItem
@@ -109,21 +204,9 @@ const Projects = () => {
                 All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
                 All data stored in a PostgreSQL database.
                 '
-                className='flex flex-row-reverse items-center w-full px-20 pb-96'
+                className='flex flex-col px-4 justify-start items-center w-full'
                 src={Taskmanager}
-                />
-                <ProjectItem
-                title='Task Manager App'
-                text='
-                A task manager app that allows users to create, update, and delete tasks.
-                The app includes a sleek calendar view and a user-friendly interface. 
-                Key features include ability to categorise tasks, set deadlines, and add notes.
-                All tasks are handled securely with JWT authentication. User credentials are secured with hashing and salting.
-                All data stored in a PostgreSQL database.
-                '
-                className='flex flex-row justify-start items-center w-full px-20 pb-96'
-                src={Taskmanager}
-                />
+                /> */}
             </motion.div>
        </motion.div> 
     )
@@ -149,12 +232,17 @@ const ProjectItem = ({
     title,
     text,
     src,
+    initial,
+    whileInView,
 }) => {
+
     return (
-        <motion.section className={className}>
-            <motion.div className='px-10'>
-                <h2 className='text-MainDark font-Anton text-5xl uppercase text-center pb-6'>{title}</h2>
-                <p className='text-MainDark font-WorkSans text-2xl text-center'>{text}</p>
+        <motion.section
+        className={className}
+        >
+            <motion.div className='pb-6'>
+                <h2 className='text-MainDark font-Anton text-3xl uppercase text-center pb-6'>{title}</h2>
+                <p className='text-MainDark font-WorkSans text-lg text-center'>{text}</p>
             </motion.div>
             <motion.div>
                 <motion.img src={src} />
