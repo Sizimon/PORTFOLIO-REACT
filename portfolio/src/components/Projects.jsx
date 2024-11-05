@@ -115,33 +115,4 @@ const ProjectHeadingLetters = ({
     </motion.span>
     )
 }
-
-const ProjectCard = ({
-    card
-}) => {
-    return (
-        <div className='w-96 h-96 bg-MainDark'>
-
-        </div>
-    )
-}
-
-const cards = [
-    {
-        title: 'Task Manager',
-        description: 'A simple task manager app',
-        id: '1',
-    }, 
-    {
-        title: 'Weather Tracker',
-        description: 'A simple weather tracking app',
-        id: '2',
-    },
-    {
-        title: 'Restaurant Webpage',
-        description: 'Webapp for a renown restaurant with integrated booking system',
-        id: '3',
-    },
-]
-
 export default Projects;
