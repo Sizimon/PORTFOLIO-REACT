@@ -5,6 +5,8 @@ import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaJs } from "react-icons/fa6"
 
 const SECTION_HEIGHT = 1500;
 
+/* MAIN SECTION */
+
 const Hero = () => {
 
     const subheading = [
@@ -27,6 +29,10 @@ const Hero = () => {
         </div>
     )
 }
+
+/* END */
+
+/* TYPEWRITER SECTION */
 
 const LETTER_DELAY = 0.125;
 const BOX_FADE_DURATION = 0.125;
@@ -103,6 +109,10 @@ const Typewriter = ({ subheading }) => {
         </h2>
     )
 }
+
+/* END */
+
+/* PARALLAX ABOUT SECTION */
 
 const ParallaxAbout = () => {
 
@@ -196,7 +206,9 @@ const ParallaxDescription = ({
     )
 }
 
-// TECH STACK
+/* END */
+
+/* TECH STACK SECTION */
 
 const gridVariants = {
     hidden: {
@@ -315,5 +327,7 @@ const ParallaxTechHeader = ({
         </>
     )
 }
+
+/* END */
 
 export default Hero;

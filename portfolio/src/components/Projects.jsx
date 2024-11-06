@@ -3,6 +3,8 @@ import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import HorizontalScroll from './HorizontalScroll';
 
+/* PROJECT SECTION LETTER EFFECT */
+
 const ProjectHeaderGridVariants = {
     hidden: {
         opacity: 0
@@ -26,6 +28,10 @@ const ProjectHeaderGridItems = {
         },
     },
 };
+
+/* END */
+
+/* MAIN PROJECT SECTION */
 
 const Projects = () => {
     const overlayRef = useRef(null)

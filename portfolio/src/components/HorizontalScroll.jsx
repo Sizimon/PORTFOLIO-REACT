@@ -4,6 +4,8 @@ import { motion , useScroll , useTransform} from "framer-motion";
 import Taskmanager from '../assets/image/Taskmanager.png';
 import { FaGithub, FaGlobe } from "react-icons/fa6";
 
+/* Array of project cards */
+
 const cards = [
     {
         id: 1,
@@ -27,6 +29,10 @@ const cards = [
     },
 ]
 
+/* END */
+
+/* HORIZONTAL SCROLL SECTION */
+
 const HorizontalScroll = () => {
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -47,6 +53,10 @@ const HorizontalScroll = () => {
         </section>
     )
 };
+
+/* END */
+
+/* PROJECT CARD COMPONENT (MAPPED IN HORIZONTAL SECTION) */
 
 const ProjectCard = ({
     title, description, id, url, summary
