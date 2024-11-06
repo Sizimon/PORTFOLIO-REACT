@@ -2,9 +2,6 @@ import React from 'react';
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import HorizontalScroll from './HorizontalScroll';
-import Taskmanager from '../assets/image/Taskmanager.png';
-
-const SECTION_HEIGHT = 1500;
 
 const ProjectHeaderGridVariants = {
     hidden: {
