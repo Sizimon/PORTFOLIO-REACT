@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useAnimation } from 'framer-motion';
 import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaJs } from "react-icons/fa6"
 
 const SECTION_HEIGHT = 1500;
@@ -17,14 +17,14 @@ const Hero = () => {
 
     return (
         <div
-            className="relative w-full bg-MainDark overflow-x-hidden"
+            className="relative w-full bg-MainDark"
             style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}>
-            <h1 className='text-MainLight font-WorkSans uppercase text-4xl text-center pt-80 m-auto'>Szymon Samus</h1>
+            <h1 className='text-MainLight font-WorkSans uppercase text-4xl text-center pt-[400px] md:pt-80 m-auto'>Szymon Samus</h1>
             <Typewriter subheading={subheading} />
             <ParallaxAbout />
             <ParallaxTechStack />
             <div
-                className='absolute bottom-0 left-0 right-0 h-[500px] bg-gradient-to-b from from-MainLight/0 to-MainLight'
+                className='absolute bottom-0 left-0 right-0 h-[600px] md-[500px] bg-gradient-to-b from from-MainLight/0 to-MainLight'
             />
         </div>
     )
@@ -55,7 +55,7 @@ const Typewriter = ({ subheading }) => {
 
     return (
         <h2
-            className='text-MainLight font-Anton uppercase text-5xl text-center m-auto pb-[400px]'
+            className='text-MainLight font-Anton uppercase text-4xl md:text-5xl text-center m-auto pb-[520px] md:pb-[400px]'
         >
             {subheading[currentSubHeading].split('').map((letter, index) => {
                 return (
@@ -122,11 +122,11 @@ const ParallaxAbout = () => {
         >
             <ParallaxHeader
                 text="About"
-                className="uppercase font-Anton text-MainLight text-5xl overflow-hidden"
+                className="uppercase font-Anton text-MainLight text-4xl md:text-5xl overflow-hidden"
             />
             <ParallaxDescription
                 text="I am a Junior Frontend Developer with a passion for bringing sleek and user-friendly interfaces to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
-                className="font-WorkSans text-MainLight text-2xl text-center"
+                className="font-WorkSans text-MainLight text-xl md:text-2xl text-center"
             />
         </motion.div>
     );
@@ -137,23 +137,46 @@ const ParallaxHeader = ({
     className,
 }) => {
     const { scrollY } = useScroll();
+    const [initialPosition, setInitialPosition] = useState(null);
+    const [animatePosition, setAnimatePosition] = useState({x: 0, y: 0});
 
     const opacity = useTransform(
         scrollY,
         [50, 300],
-        [0, 1])
+        [0, 1]);
+    
+    useEffect(() => {
+        const updateAnimation = () => {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if(isMobile) {
+                console.log("Mobile");
+                console.log(initialPosition);
+                setInitialPosition({ x: 0, y: 50 }); // Smaller offset for mobile
+            } else {
+                setInitialPosition({ x: 600, y: 0 }); // Larger offset for desktop
+            }
+            setAnimatePosition({ x: 0, y: 0 });
+        };
+
+        updateAnimation();
+
+        window.addEventListener('resize', updateAnimation);
+
+        return () => window.removeEventListener('resize', updateAnimation);
+    }, []);  
+
+    if (initialPosition === null) {
+        return null;
+    }
+
     return (
         <motion.header
             className={className}
             style={{
                 opacity,
             }}
-            initial={{
-                x: 600,
-            }}
-            whileInView={{
-                x: 0,
-            }}
+            initial={initialPosition}
+            whileInView={animatePosition}
             transition={{
                 type: "spring",
                 stiffness: 75,
@@ -173,24 +196,47 @@ const ParallaxDescription = ({
     className,
 }) => {
     const { scrollY } = useScroll();
+    const [initialPosition, setInitialPosition] = useState(null); // Default to desktop offset
+    const [animatePosition, setAnimatePosition] = useState({ x: 0, y: 0 });
 
     const opacity = useTransform(
         scrollY,
         [50, 300],
         [0, 1]
-    )
+    );
+
+    useEffect(() => {
+        const updateAnimation = () => {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if(isMobile) {
+                console.log("Mobile");
+                console.log(initialPosition);
+                setInitialPosition({ x: 0, y: -50 }); // Smaller offset for mobile
+            } else {
+                setInitialPosition({ x: -750, y: 0 }); // Larger offset for desktop
+            }
+            setAnimatePosition({ x: 0, y: 0 });
+        };
+
+        updateAnimation();
+
+        window.addEventListener('resize', updateAnimation);
+
+        return () => window.removeEventListener('resize', updateAnimation);
+    }, []);  
+
+    if (initialPosition === null) {
+        return null;
+    }  
+
     return (
         <motion.span
             className={className}
             style={{
                 opacity,
             }}
-            initial={{
-                x: -750,
-            }}
-            whileInView={{
-                x: 0,
-            }}
+            initial={initialPosition}
+            whileInView={animatePosition}
             transition={{
                 type: "spring",
                 stiffness: 25,
@@ -242,10 +288,10 @@ const ParallaxTechStack = () => {
             className="flex flex-col items-center justify-center mx-auto px-4"
         >
             {/* MAIN TECHNOLOGIES DISPLAY */}
-            <motion.section className='flex flex-col justify-center text-center p-24'>
+            <motion.section className='flex flex-col justify-center text-center p-2 pt-[100px] md:p-24'>
                 <ParallaxTechHeader
                     text="My Technologies"
-                    className="font-Anton text-MainLight uppercase text-6xl tracking-wider pb-10"
+                    className="font-Anton text-MainLight uppercase text-5xl md:text-6xl tracking-wider pb-10"
                     initial={{
                         x: -500,
                         opacity: 0,
@@ -266,31 +312,31 @@ const ParallaxTechStack = () => {
                 >
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-7xl text-MainLight flex justify-center items-center'
+                        className='text-6xl md:text-7xl text-MainLight flex justify-center items-center'
                     >
                         <FaHtml5 />
                     </motion.span>
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-7xl text-MainLight'
+                        className='text-6xl md:text-7xl text-MainLight'
                     >
                         <FaCss3Alt />
                     </motion.span>
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-7xl text-MainLight'
+                        className='text-6xl md:text-7xl text-MainLight'
                     >
                         <FaJs />
                     </motion.span>
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-7xl text-MainLight'
+                        className='text-6xl md:text-7xl text-MainLight'
                     >
                         <FaReact />
                     </motion.span>
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-7xl text-MainLight'
+                        className='text-6xl md:text-7xl text-MainLight'
                     >
                         <FaNodeJs />
                     </motion.span>
