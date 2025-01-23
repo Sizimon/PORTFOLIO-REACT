@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useAnimation } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaJs } from "react-icons/fa6"
 
 const SECTION_HEIGHT = 1500;
@@ -24,7 +24,7 @@ const Hero = () => {
             <ParallaxAbout />
             <ParallaxTechStack />
             <div
-                className='absolute bottom-0 left-0 right-0 h-[600px] md-[500px] bg-gradient-to-b from from-MainLight/0 to-MainLight'
+                className='absolute bottom-0 left-0 right-0 h-[500px] bg-gradient-to-b from from-MainLight/0 to-MainLight'
             />
         </div>
     )
@@ -125,7 +125,7 @@ const ParallaxAbout = () => {
                 className="uppercase font-Anton text-MainLight text-4xl md:text-5xl overflow-hidden"
             />
             <ParallaxDescription
-                text="I am a Junior Frontend Developer with a passion for bringing sleek and user-friendly interfaces to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
+                text="I am a Junior Software Developer with a passion for bringing ideas to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
                 className="font-WorkSans text-MainLight text-xl md:text-2xl text-center"
             />
         </motion.div>
@@ -151,7 +151,7 @@ const ParallaxHeader = ({
             if(isMobile) {
                 console.log("Mobile");
                 console.log(initialPosition);
-                setInitialPosition({ x: 0, y: 50 }); // Smaller offset for mobile
+                setInitialPosition({ x: 0, y: -100 }); // Smaller offset for mobile
             } else {
                 setInitialPosition({ x: 600, y: 0 }); // Larger offset for desktop
             }
@@ -211,7 +211,7 @@ const ParallaxDescription = ({
             if(isMobile) {
                 console.log("Mobile");
                 console.log(initialPosition);
-                setInitialPosition({ x: 0, y: -50 }); // Smaller offset for mobile
+                setInitialPosition({ x: 0, y: 100 }); // Smaller offset for mobile
             } else {
                 setInitialPosition({ x: -750, y: 0 }); // Larger offset for desktop
             }
@@ -292,14 +292,14 @@ const ParallaxTechStack = () => {
                 <ParallaxTechHeader
                     text="My Technologies"
                     className="font-Anton text-MainLight uppercase text-5xl md:text-6xl tracking-wider pb-10"
-                    initial={{
-                        x: -500,
-                        opacity: 0,
-                    }}
-                    whileInView={{
-                        x: 0,
-                        opacity: 1,
-                    }}
+                    // initial={{
+                    //     x: -500,
+                    //     opacity: 0,
+                    // }}
+                    // whileInView={{
+                    //     x: 0,
+                    //     opacity: 1,
+                    // }}
                 />
                 <motion.div
                     variants={gridVariants}
@@ -349,19 +349,44 @@ const ParallaxTechStack = () => {
 const ParallaxTechHeader = ({
     className,
     text,
-    initial,
-    whileInView
 }) => {
+    const [initialPosition, setInitialPosition] = useState(null); // Default to desktop offset
+    const [animatePosition, setAnimatePosition] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const updateAnimation = () => {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if(isMobile) {
+                console.log("Mobile");
+                console.log(initialPosition);
+                setInitialPosition({ x: 0, y: -100 }); // Smaller offset for mobile
+            } else {
+                setInitialPosition({ x: 500, y: 0 }); // Larger offset for desktop
+            }
+            setAnimatePosition({ x: 0, y: 0 });
+        };
+
+        updateAnimation();
+
+        window.addEventListener('resize', updateAnimation);
+
+        return () => window.removeEventListener('resize', updateAnimation);
+    }, []);  
+
+    if (initialPosition === null) {
+        return null;
+    }  
+
     return (
         <>
             <motion.header
                 className={className}
-                initial={initial}
-                whileInView={whileInView}
+                initial={initialPosition}
+                whileInView={animatePosition}
                 transition={{
                     duration: 3,
                     type: "spring",
-                    stiffness: 35,
+                    stiffness: 75,
                 }}
                 viewport={{
                     margin: '-150px',

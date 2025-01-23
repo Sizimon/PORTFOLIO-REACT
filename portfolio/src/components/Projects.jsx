@@ -35,20 +35,20 @@ const ProjectHeaderGridItems = {
 
 const Projects = () => {
     const overlayRef = useRef(null)
-    const isInView = useInView(overlayRef, {once: true})
+    const isInView = useInView(overlayRef, { once: true })
     useEffect(() => {
         console.log("In view:", isInView)
-    }, [ isInView ])
-    
+    }, [isInView])
+
 
     return (
-    <>
-       <motion.div 
-       className='relative w-full overflow-x-hidden'
-       >
+        <>
             <motion.div
-            className='grid grid-cols-8 gap-2 w-2/4 justify-center items-center mx-auto pb-96'
-            variants={ProjectHeaderGridVariants}
+                className='relative w-full overflow-x-hidden'
+            >
+                <motion.div
+                    className='grid grid-cols-8 gap-2 w-full md:w-2/4 justify-center items-center mx-auto pb-72 md:pb-96 px-8 md:px-0'
+                    variants={ProjectHeaderGridVariants}
                     initial="hidden"
                     whileInView="show"
                     viewport={{
@@ -56,51 +56,54 @@ const Projects = () => {
                         margin: '-150px',
                     }}
 
-            >
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='P'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='R'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='O'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='J'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='E'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='C'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='T'
-                />
-                <ProjectHeadingLetters 
-                variants={ProjectHeaderGridItems}
-                className='text-MainDark text-7xl font-WorkSans'
-                text='S'
-                />
+                >
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='P'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='R'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='O'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='J'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='E'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='C'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='T'
+                    />
+                    <ProjectHeadingLetters
+                        variants={ProjectHeaderGridItems}
+                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        text='S'
+                    />
+                </motion.div>
             </motion.div>
-       </motion.div> 
-       <HorizontalScroll />
-       </>
+            <HorizontalScroll />
+            <div
+                className='bottom-0 left-0 right-0 h-[500px] bg-gradient-to-b from from-MainDark/0 to-MainDark/100'
+            />
+        </>
     )
 }
 
@@ -110,12 +113,12 @@ const ProjectHeadingLetters = ({
     text,
 }) => {
     return (
-    <motion.span
-    className={className}
-    variants={variants}
-    >
-        {text}
-    </motion.span>
+        <motion.span
+            className={className}
+            variants={variants}
+        >
+            {text}
+        </motion.span>
     )
 }
 export default Projects;
