@@ -1,8 +1,14 @@
 import React from "react";
+import Slider from "react-slick";
 import { useRef, useState, useEffect } from "react";
 import { motion , useScroll , useTransform} from "framer-motion";
-import Taskmanager from '../assets/image/Taskmanager.png';
+import Taskmanager_1 from '../assets/image/Taskmanager.png';
+import Taskmanager_2 from '../assets/image/Taskmanager_2.png';
+import Taskmanager_3 from '../assets/image/Taskmanager_3.png';
 import { FaGithub, FaGlobe } from "react-icons/fa6";
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 /* Array of project cards */
 
@@ -12,20 +18,20 @@ const cards = [
         title: 'InTimeTasks',
         summary: 'A Full-Stack Task Manager Web App',
         description: 'InTimeTasks is a Full-Stack Task Manager web app which allows users to create and manage tasks over any designated period of time. The app is built using React, Node.js, Express, and PostgtreSQL. \n \n The app allows users to create tasks, set deadlines, mark tasks as complete and other interesting features. The app also allows users to view tasks by day, week, or month. The app is fully responsive, can be used on any device and is hosted on Heroku.',
-        url: Taskmanager,
+        images: [Taskmanager_1, Taskmanager_2, Taskmanager_3],
         github: ''
     }, 
     {
         id: 2,
         title: 'GuildTracker Bot',
         summary: 'Tool for tracking guild activity in MMORPG communities.',
-        url: '../assets/image/Taskmanager.png',
+        images: [],
     },
     {
         id: 3,
         title: 'Weather Tracker',
         summary: 'A simple weather tracking app',
-        url: '../assets/image/Taskmanager.png',
+        images: [],
     },
 ]
 
@@ -62,7 +68,7 @@ const HorizontalScroll = () => {
                             [0, 1, 1, 1, 0]);
                         return (
                             <motion.div key={card.id} style={{ opacity }} className="w-[90vw]">
-                                <ProjectCard title={card.title} summary={card.summary} description={card.description} url={card.url} />
+                                <ProjectCard title={card.title} summary={card.summary} description={card.description} images={card.images} />
                             </motion.div>
                         )
                         // <ProjectCard key={card.id} title={card.title} summary={card.summary} description={card.description} url={card.url} />
@@ -78,8 +84,19 @@ const HorizontalScroll = () => {
 /* PROJECT CARD COMPONENT (MAPPED IN HORIZONTAL SECTION) */
 
 const ProjectCard = ({
-    title, description, id, url, summary
+    title, description, id, summary, images
 }) => {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+    }
+
+
     return (
         <div 
         key={id}
@@ -90,12 +107,19 @@ const ProjectCard = ({
                 <p className='text-MainLight font-WorkSans text-lg'>{summary}</p>
             </div>
             <div className="grid grid-cols-1 pt-0 md:grid-cols-2 md:pt-10">
-                <div className="m-auto p-4">
-                    <img src={url} alt="" className="h-[200px] w-[355px] md:h-[400px] md:w-[600px]" />
+                <div className="m-auto p-4 md:px-6 w-full justify-center items-center">
+                    <Slider {...settings}>
+                        {images.map((image, index) => (
+                            <div key={index}>
+                                <img src={image} alt="" className="h-auto max-h-[300px] w-auto max-w-full object-contain" />
+                            </div>
+                        ))}
+                    </Slider>
+                    {/* <img src={url} alt="" className="h-[200px] w-[355px] md:h-[400px] md:w-[600px]" /> */}
                 </div>
-                <div className="m-auto px-6 md:px-16">
+                <div className="m-auto px-2 md:px-6">
                     <p className='text-MainLight font-WorkSans text-sm md:text-lg'>{description}</p>
-                    <div className='flex flex-row justify-center pt-10 text-center'>
+                    <div className='flex flex-row justify-center pt-10 md:pt-4 text-center'>
                         <button
                         className='flex flex-row p-1 gap-2 rounded-md text-MainDark bg-MainLight mr-5'
                         >
