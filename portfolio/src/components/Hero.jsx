@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaJs } from "react-icons/fa6"
 
-const SECTION_HEIGHT = 1500;
+const SECTION_HEIGHT = 1000;
 
 /* MAIN SECTION */
 
@@ -17,14 +17,18 @@ const Hero = () => {
 
     return (
         <div
-            className="relative w-full bg-MainDark"
+            className="relative w-full bg-MainDark 4k:flex 4k:flex-col"
             style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}>
-            <h1 className='text-MainLight font-WorkSans uppercase text-4xl text-center pt-[400px] md:pt-80 m-auto'>Szymon Samus</h1>
-            <Typewriter subheading={subheading} />
-            <ParallaxAbout />
-            <ParallaxTechStack />
+            <div>
+                <h1 className='text-MainLight font-WorkSans uppercase text-4xl 4k:text-8xl text-center pt-[45vh] m-auto'>Szymon Samus</h1>
+                <Typewriter subheading={subheading} />
+            </div>
+            <div className='4k:flex 4k:flex-col 4k:justify-center 4k:items-center 4k:mx-auto'>
+                <ParallaxAbout />
+                <ParallaxTechStack />
+            </div>
             <div
-                className='absolute bottom-0 left-0 right-0 h-[500px] bg-gradient-to-b from from-MainLight/0 to-MainLight'
+                className='absolute bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-b from from-MainLight/0 to-MainLight'
             />
         </div>
     )
@@ -55,56 +59,56 @@ const Typewriter = ({ subheading }) => {
 
     return (
         <h2
-            className='text-MainLight font-Anton uppercase text-4xl md:text-5xl text-center m-auto pb-[520px] md:pb-[400px]'
+            className='text-MainLight font-Anton uppercase text-4xl 4k:text-8xl md:text-5xl text-center m-auto pb-[50vh] 4k:pb-[10vh]'
         >
             {subheading[currentSubHeading].split('').map((letter, index) => {
                 return (
-                <motion.span 
-                initial={{
-                    opacity: 1,
-                }}
-                animate={{
-                    opacity: 0,
-                }}
-                transition={{
-                    delay: FADE_DELAY,
-                    duration: FADE_DURATION,
-                    ease: 'easeInOut',
-                    
-                }}
-                className='relative' key={`${currentSubHeading}-${index}`}>
                     <motion.span
-                    initial={{
-                        opacity: 0,
-                    }}
-                    animate={{
-                        opacity: 1,
-                    }}
-                    transition={{
-                        delay: index * LETTER_DELAY,
-                        duration: 0,
-                        
-                    }}
-                    >
-                        {letter}
+                        initial={{
+                            opacity: 1,
+                        }}
+                        animate={{
+                            opacity: 0,
+                        }}
+                        transition={{
+                            delay: FADE_DELAY,
+                            duration: FADE_DURATION,
+                            ease: 'easeInOut',
+
+                        }}
+                        className='relative' key={`${currentSubHeading}-${index}`}>
+                        <motion.span
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: 1,
+                            }}
+                            transition={{
+                                delay: index * LETTER_DELAY,
+                                duration: 0,
+
+                            }}
+                        >
+                            {letter}
+                        </motion.span>
+                        <motion.span
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                                delay: index * LETTER_DELAY,
+                                times: [0, 0.5, 1],
+                                duration: BOX_FADE_DURATION,
+                                ease: 'easeInOut',
+                            }}
+                            className='absolute bottom-[3px] left-[1px] right-0 top-[3px] bg-MainLight'
+                        />
                     </motion.span>
-                    <motion.span 
-                    initial={{
-                        opacity: 0,
-                    }}
-                    animate={{
-                        opacity: [0, 1, 0],
-                    }}
-                    transition={{
-                        delay: index * LETTER_DELAY,
-                        times: [0, 0.5, 1],
-                        duration: BOX_FADE_DURATION,
-                        ease: 'easeInOut',
-                    }}
-                    className='absolute bottom-[3px] left-[1px] right-0 top-[3px] bg-MainLight'
-                    />
-                </motion.span>
-            )
+                )
             })}
         </h2>
     )
@@ -118,15 +122,15 @@ const ParallaxAbout = () => {
 
     return (
         <motion.div
-            className='flex flex-col items-center mx-auto max-w-5xl px-4 pb-[300px]'
+            className='flex flex-col items-center mx-auto max-w-5xl px-4 pb-[5vh]'
         >
             <ParallaxHeader
                 text="About"
-                className="uppercase font-Anton text-MainLight text-4xl md:text-5xl overflow-hidden"
+                className="uppercase font-Anton text-MainLight text-4xl 4k:text-7xl md:text-5xl overflow-hidden"
             />
             <ParallaxDescription
                 text="I am a Junior Software Developer with a passion for bringing ideas to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
-                className="font-WorkSans text-MainLight text-xl md:text-2xl text-center"
+                className="font-WorkSans text-MainLight text-xl md:text-2xl 4k:text-5xl text-center"
             />
         </motion.div>
     );
@@ -138,22 +142,22 @@ const ParallaxHeader = ({
 }) => {
     const { scrollY } = useScroll();
     const [initialPosition, setInitialPosition] = useState(null);
-    const [animatePosition, setAnimatePosition] = useState({x: 0, y: 0});
+    const [animatePosition, setAnimatePosition] = useState({ x: 0, y: 0 });
 
     const opacity = useTransform(
         scrollY,
-        [50, 300],
-        [0, 1]);
-    
+        [0, 150, 300],
+        [0, 0.8, 1]);
+
     useEffect(() => {
         const updateAnimation = () => {
             const isMobile = window.matchMedia('(max-width: 768px)').matches;
-            if(isMobile) {
+            if (isMobile) {
                 console.log("Mobile");
                 console.log(initialPosition);
-                setInitialPosition({ x: 0, y: -100 }); // Smaller offset for mobile
+                setInitialPosition({ x: 300, y: 0 }); // Smaller offset for mobile
             } else {
-                setInitialPosition({ x: 600, y: 0 }); // Larger offset for desktop
+                setInitialPosition({ x: 450, y: 0 }); // Larger offset for desktop
             }
             setAnimatePosition({ x: 0, y: 0 });
         };
@@ -163,7 +167,7 @@ const ParallaxHeader = ({
         window.addEventListener('resize', updateAnimation);
 
         return () => window.removeEventListener('resize', updateAnimation);
-    }, []);  
+    }, []);
 
     if (initialPosition === null) {
         return null;
@@ -172,9 +176,9 @@ const ParallaxHeader = ({
     return (
         <motion.header
             className={className}
-            style={{
-                opacity,
-            }}
+            // style={{
+            //     opacity,
+            // }}
             initial={initialPosition}
             whileInView={animatePosition}
             transition={{
@@ -208,10 +212,10 @@ const ParallaxDescription = ({
     useEffect(() => {
         const updateAnimation = () => {
             const isMobile = window.matchMedia('(max-width: 768px)').matches;
-            if(isMobile) {
+            if (isMobile) {
                 console.log("Mobile");
                 console.log(initialPosition);
-                setInitialPosition({ x: 0, y: 100 }); // Smaller offset for mobile
+                setInitialPosition({ x: -300, y: 0 }); // Smaller offset for mobile
             } else {
                 setInitialPosition({ x: -750, y: 0 }); // Larger offset for desktop
             }
@@ -223,18 +227,18 @@ const ParallaxDescription = ({
         window.addEventListener('resize', updateAnimation);
 
         return () => window.removeEventListener('resize', updateAnimation);
-    }, []);  
+    }, []);
 
     if (initialPosition === null) {
         return null;
-    }  
+    }
 
     return (
         <motion.span
             className={className}
-            style={{
-                opacity,
-            }}
+            // style={{
+            //     opacity,
+            // }}
             initial={initialPosition}
             whileInView={animatePosition}
             transition={{
@@ -288,18 +292,18 @@ const ParallaxTechStack = () => {
             className="flex flex-col items-center justify-center mx-auto px-4"
         >
             {/* MAIN TECHNOLOGIES DISPLAY */}
-            <motion.section className='flex flex-col justify-center text-center p-2 pt-[100px] md:p-24'>
+            <motion.section className='flex flex-col justify-center text-center p-2'>
                 <ParallaxTechHeader
                     text="My Technologies"
                     className="font-Anton text-MainLight uppercase text-5xl md:text-6xl tracking-wider pb-10"
-                    // initial={{
-                    //     x: -500,
-                    //     opacity: 0,
-                    // }}
-                    // whileInView={{
-                    //     x: 0,
-                    //     opacity: 1,
-                    // }}
+                // initial={{
+                //     x: -500,
+                //     opacity: 0,
+                // }}
+                // whileInView={{
+                //     x: 0,
+                //     opacity: 1,
+                // }}
                 />
                 <motion.div
                     variants={gridVariants}
@@ -356,12 +360,12 @@ const ParallaxTechHeader = ({
     useEffect(() => {
         const updateAnimation = () => {
             const isMobile = window.matchMedia('(max-width: 768px)').matches;
-            if(isMobile) {
+            if (isMobile) {
                 console.log("Mobile");
                 console.log(initialPosition);
-                setInitialPosition({ x: 0, y: -100 }); // Smaller offset for mobile
+                setInitialPosition({ x: 0, y: 100 }); // Smaller offset for mobile
             } else {
-                setInitialPosition({ x: 500, y: 0 }); // Larger offset for desktop
+                setInitialPosition({ x: -500, y: 0 }); // Larger offset for desktop
             }
             setAnimatePosition({ x: 0, y: 0 });
         };
@@ -371,11 +375,11 @@ const ParallaxTechHeader = ({
         window.addEventListener('resize', updateAnimation);
 
         return () => window.removeEventListener('resize', updateAnimation);
-    }, []);  
+    }, []);
 
     if (initialPosition === null) {
         return null;
-    }  
+    }
 
     return (
         <>

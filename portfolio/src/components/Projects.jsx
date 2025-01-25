@@ -47,7 +47,7 @@ const Projects = () => {
                 className='relative w-full overflow-x-hidden'
             >
                 <motion.div
-                    className='grid grid-cols-8 gap-2 w-full md:w-2/4 justify-center items-center mx-auto pb-72 md:pb-96 px-8 md:px-0'
+                    className='grid grid-cols-8 gap-2 w-full md:w-2/4 justify-center items-center mx-auto pb-[45vh] px-8 md:px-0'
                     variants={ProjectHeaderGridVariants}
                     initial="hidden"
                     whileInView="show"
@@ -59,49 +59,49 @@ const Projects = () => {
                 >
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='P'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='R'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='O'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='J'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='E'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='C'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='T'
                     />
                     <ProjectHeadingLetters
                         variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-6xl md:text-7xl font-WorkSans'
+                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
                         text='S'
                     />
                 </motion.div>
             </motion.div>
             <HorizontalScroll />
             <div
-                className='bottom-0 left-0 right-0 h-[500px] bg-gradient-to-b from from-MainDark/0 to-MainDark/100'
+                className='bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-b from from-MainDark/0 to-MainDark/100'
             />
         </>
     )

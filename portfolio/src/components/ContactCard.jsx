@@ -8,7 +8,7 @@ const Typewriter = ({ header }) => {
 
     return (
         <h2
-            className='text-MainLight font-Anton uppercase text-4xl md:text-5xl text-center m-auto pb-8'
+            className='text-MainLight font-Anton uppercase text-4xl md:text-5xl text-center m-auto pt-[20vh]'
         >
             {header.split('').map((letter, index) => {
                 return (
@@ -67,11 +67,11 @@ const Typewriter = ({ header }) => {
 
 const CoverCard = () => {
     return (
-        <div className='bg-MainDark h-full flex flex-col items-start justify-center pt-10 pb-24 uppercase'>
+        <div className='bg-MainDark h-full flex flex-col items-start justify-center pt-10 pb-[20vh] uppercase'>
             <Typewriter header='Contact Me' />
             <div className='flex flex-col items-center justify-center w-full'> 
                 <p className='text-MainLight font-WorkSans text-center text-lg md:text-xl px-6'>I'm always interested in new opportunities to grow. Feel free to reach out!</p>
-                <div className='flex flex-col md:flex-row items-center md:items-start justify-center pt-10 text-center'>
+                <div className='flex flex-col md:flex-row items-center md:items-start justify-center pt-[5vh] text-center'>
                     <p className='flex flex-row p-1 gap-2 rounded-md text-MainLight ml-5 font-WorkSans text-lg'>EMAIL: <span>szymonsamus@gmail.com</span></p>
                     <p className='flex flex-row p-1 gap-2 rounded-md text-MainLight ml-5 font-WorkSans text-lg'>PHONE: <span>+46736487570</span></p>
                 </div>

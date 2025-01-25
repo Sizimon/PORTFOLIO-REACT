@@ -46,7 +46,7 @@ const HorizontalScroll = () => {
     });
     
     // const x = useTransform(scrollYProgress, [0, 1], ["1%", "-65.5%"]);
-    const x = useTransform(scrollYProgress, [0, cards.length], ["2%", `-${(cards.length - 1) * 100}%`]);
+    const x = useTransform(scrollYProgress, [0, cards.length], ["1.75%", `-${(cards.length - 1) * 100}%`]);
 
     const sectionHeight = `${100 * cards.length}vh`;
 
@@ -67,7 +67,7 @@ const HorizontalScroll = () => {
                             ],
                             [0, 1, 1, 1, 0]);
                         return (
-                            <motion.div key={card.id} style={{ opacity }} className="w-[90vw]">
+                            <motion.div key={card.id} style={{ opacity }} className="w-[90vw] h-[80vh]">
                                 <ProjectCard title={card.title} summary={card.summary} description={card.description} images={card.images} />
                             </motion.div>
                         )
@@ -100,37 +100,36 @@ const ProjectCard = ({
     return (
         <div 
         key={id}
-        className='group relative h-[700px] md:h-[600px] w-[90vw] md:w-[90vw] overflow-hidden bg-MainDark whitespace-pre-line rounded-2xl'
+        className='group relative h-full w-[90vw] overflow-hidden bg-MainDark whitespace-pre-line rounded-2xl 4k:rounded-3xl'
         >
-            <div className="flex flex-col items-center">
-                <h1 className='text-4xl text-MainLight font-Anton pt-10'>{title}</h1>
-                <p className='text-MainLight font-WorkSans text-lg'>{summary}</p>
+            <div className="flex flex-col items-center 4k:pb-[10vh]">
+                <h1 className='text-4xl md:text-5xl 4k:text-9xl text-MainLight font-Anton pt-10'>{title}</h1>
+                <p className='text-MainLight font-WorkSans text-lg md:text-2xl 4k:text-6xl'>{summary}</p>
             </div>
-            <div className="grid grid-cols-1 pt-0 md:grid-cols-2 md:pt-10">
-                <div className="m-auto p-4 md:px-6 w-full justify-center items-center">
+            <div className="grid grid-cols-1 ap:grid-cols-2 pt-0 md:pt-10 4k:px-[5%] gap-32">
+                <div className="m-auto p-4 pb-12 md:px-6 md:pb-10 w-full justify-center items-center">
                     <Slider {...settings}>
                         {images.map((image, index) => (
                             <div key={index}>
-                                <img src={image} alt="" className="h-auto max-h-[300px] w-auto max-w-full object-contain" />
+                                <img src={image} alt="" className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto" />
                             </div>
                         ))}
                     </Slider>
-                    {/* <img src={url} alt="" className="h-[200px] w-[355px] md:h-[400px] md:w-[600px]" /> */}
                 </div>
-                <div className="m-auto px-2 md:px-6">
-                    <p className='text-MainLight font-WorkSans text-sm md:text-lg'>{description}</p>
-                    <div className='flex flex-row justify-center pt-10 md:pt-4 text-center'>
+                <div className="m-auto px-2 md:px-6 bp:px-[20%] bp:py-[5%] ap:px-6 ap:py-0">
+                    <p className='text-MainLight font-WorkSans text-sm md:text-xl 4k:text-5xl'>{description}</p>
+                    <div className='flex flex-row justify-center pt-10 4k:pt-[5vh] md:pt-4 text-center'>
                         <button
-                        className='flex flex-row p-1 gap-2 rounded-md text-MainDark bg-MainLight mr-5'
+                        className='flex flex-row p-1 gap-2 4k:gap-6  rounded-md text-MainDark bg-MainLight mr-5'
                         >
-                            <FaGithub className="h-8 w-8 text-MainDark" />
-                            <p className="self-center">GitHub</p>
+                            <FaGithub className="h-24 w-24 text-MainDark" />
+                            <p className="self-center 4k:text-5xl">GitHub</p>
                         </button> 
                         <button
-                        className='flex flex-row p-1 gap-2 rounded-md text-MainDark bg-MainLight ml-5'
+                        className='flex flex-row p-1 gap-2 4k:gap-6 rounded-md text-MainDark bg-MainLight ml-5'
                         >
-                            <FaGlobe className="h-8 w-8 text-MainDark" />
-                            <p className="self-center">View</p>
+                            <FaGlobe className="h-24 w-24 text-MainDark" />
+                            <p className="self-center 4k:text-5xl">View</p>
                         </button> 
                     </div>
                 </div>
