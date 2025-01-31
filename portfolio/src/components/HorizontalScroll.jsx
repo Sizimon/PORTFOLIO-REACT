@@ -9,6 +9,7 @@ import { FaGithub, FaGlobe } from "react-icons/fa6";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import './HorizontalScroll.css';
 
 /* Array of project cards */
 
@@ -67,7 +68,7 @@ const HorizontalScroll = () => {
                             ],
                             [0, 1, 1, 1, 0]);
                         return (
-                            <motion.div key={card.id} style={{ opacity }} className="w-[90vw] h-[80vh]">
+                            <motion.div key={card.id} style={{ opacity }} className="w-[90vw] h-[90vh] xs:h-[80vh]">
                                 <ProjectCard title={card.title} summary={card.summary} description={card.description} images={card.images} />
                             </motion.div>
                         )
@@ -87,6 +88,7 @@ const ProjectCard = ({
     title, description, id, summary, images
 }) => {
     const settings = {
+        arrows: false,
         dots: true,
         infinite: true,
         speed: 500,
@@ -100,36 +102,36 @@ const ProjectCard = ({
     return (
         <div 
         key={id}
-        className='group relative h-full w-[90vw] overflow-hidden bg-MainDark whitespace-pre-line rounded-2xl 4k:rounded-3xl'
+        className='flex flex-col justify-center group relative h-full w-[90vw] overflow-hidden bg-MainDark whitespace-pre-line rounded-none 4k:rounded-3xl'
         >
-            <div className="flex flex-col items-center 4k:pb-[10vh]">
-                <h1 className='text-4xl md:text-5xl 4k:text-9xl text-MainLight font-Anton pt-10'>{title}</h1>
-                <p className='text-MainLight font-WorkSans text-lg md:text-2xl 4k:text-6xl'>{summary}</p>
+            <div className="flex flex-col items-center pb-0 4k:pb-[10vh]">
+                <h1 className='text-2xl xs:text-4xl md:text-5xl 4k:text-9xl text-MainLight font-Anton pt-[2vh]'>{title}</h1>
+                <p className='text-MainLight font-WorkSans text-sm xs:text-lg md:text-2xl 4k:text-6xl'>{summary}</p>
             </div>
-            <div className="grid grid-cols-1 ap:grid-cols-2 pt-0 md:pt-10 4k:px-[5%] gap-32">
+            <div className="grid grid-cols-1 ap:grid-cols-2 pt-0 md:pt-10 4k:px-[5%] 4k:gap-32">
                 <div className="m-auto p-4 pb-12 md:px-6 md:pb-10 w-full justify-center items-center">
                     <Slider {...settings}>
                         {images.map((image, index) => (
                             <div key={index}>
-                                <img src={image} alt="" className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto" />
+                                <img src={image} alt="" className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto scale-[90%] transition delay-75 duration-200 ease-in-out hover:scale-100" />
                             </div>
                         ))}
                     </Slider>
                 </div>
                 <div className="m-auto px-2 md:px-6 bp:px-[20%] bp:py-[5%] ap:px-6 ap:py-0">
-                    <p className='text-MainLight font-WorkSans text-sm md:text-xl 4k:text-5xl'>{description}</p>
+                    <p className='text-MainLight font-WorkSans text-[10px] xs:text-sm md:text-xl 4k:text-5xl'>{description}</p>
                     <div className='flex flex-row justify-center pt-10 4k:pt-[5vh] md:pt-4 text-center'>
                         <button
                         className='flex flex-row p-1 gap-2 4k:gap-6  rounded-md text-MainDark bg-MainLight mr-5'
                         >
-                            <FaGithub className="h-24 w-24 text-MainDark" />
-                            <p className="self-center 4k:text-5xl">GitHub</p>
+                            <FaGithub className="h-6 w-6 xs:h-8 xs:w-8 4k:h-24 4k:w-24 text-MainDark" />
+                            <p className="self-center text-xs xs:text-base 4k:text-5xl">GitHub</p>
                         </button> 
                         <button
                         className='flex flex-row p-1 gap-2 4k:gap-6 rounded-md text-MainDark bg-MainLight ml-5'
                         >
-                            <FaGlobe className="h-24 w-24 text-MainDark" />
-                            <p className="self-center 4k:text-5xl">View</p>
+                            <FaGlobe className="h-6 w-6 xs:h-8 xs:w-8 4k:h-24 4k:w-24 text-MainDark" />
+                            <p className="self-center text-xs xs:text-base 4k:text-5xl">View</p>
                         </button> 
                     </div>
                 </div>

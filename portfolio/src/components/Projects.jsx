@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRef, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import HorizontalScroll from './HorizontalScroll';
 
 /* PROJECT SECTION LETTER EFFECT */
@@ -9,7 +9,7 @@ const ProjectHeaderGridVariants = {
     hidden: {
         opacity: 0
     },
-    show: {
+    visible: {
         opacity: 1,
         transition: {
             staggerChildren: 0.2,
@@ -20,105 +20,95 @@ const ProjectHeaderGridVariants = {
 const ProjectHeaderGridItems = {
     hidden: {
         opacity: 0,
+        y: 20,
     },
-    show: {
+    visible: {
         opacity: 1,
+        y: 0,
         transition: {
             duration: 0.3,
         },
     },
 };
 
+const ProjectHeaderGridVariant2 = (duration) => ({
+    initial: { y: 0 },
+    animate: {
+        y: [10, -10],
+        transition: {
+            duration: duration,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 0.5,
+        }
+    }
+})
+
 /* END */
 
 /* MAIN PROJECT SECTION */
 
-const Projects = () => {
-    const overlayRef = useRef(null)
-    const isInView = useInView(overlayRef, { once: true })
-    useEffect(() => {
-        console.log("In view:", isInView)
-    }, [isInView])
+const ProjectHeadingLetters = ({ variants, className, text, duration }) => (
+    <motion.div
+        className={className}
+        variants={variants}
+    >
+        <motion.div
+            variants={ProjectHeaderGridVariant2(duration)}
+            initial="initial"
+            whileInView="animate"
+        >
+            {text}
+        </motion.div>
+    </motion.div>
+);
 
+const Projects = () => {
+    // const overlayRef = useRef(null)
+    // const isInView = useInView(overlayRef, { once: true })
+    // useEffect(() => {
+    //     console.log("In view:", isInView)
+    // }, [isInView])
+    function randomIntFromInterval(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    };
 
     return (
         <>
             <motion.div
-                className='relative w-full overflow-x-hidden'
+                className='relative w-full py-[2.5vh]'
             >
                 <motion.div
-                    className='grid grid-cols-8 gap-2 w-full md:w-2/4 justify-center items-center mx-auto pb-[45vh] px-8 md:px-0'
+                    className='grid grid-cols-8 gap-2 w-full md:w-2/4 justify-center items-center mx-auto pb-0  px-8 md:px-0 z-10'
                     variants={ProjectHeaderGridVariants}
                     initial="hidden"
-                    whileInView="show"
+                    whileInView="visible"
                     viewport={{
                         once: true,
                         margin: '-150px',
                     }}
-
                 >
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='P'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='R'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='O'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='J'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='E'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='C'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='T'
-                    />
-                    <ProjectHeadingLetters
-                        variants={ProjectHeaderGridItems}
-                        className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
-                        text='S'
-                    />
+                    {['P', 'R', 'O', 'J', 'E', 'C', 'T', 'S'].map((letter, index) => {
+                        const animDuration = randomIntFromInterval(2, 6);
+                        return (
+                            <ProjectHeadingLetters
+                                key={index}
+                                variants={ProjectHeaderGridItems}
+                                className='text-MainDark text-4xl md:text-7xl 4k:text-9xl font-WorkSans'
+                                text={letter}
+                                duration={animDuration} // Pass the duration for the floating animation
+                            />
+                        );
+                    })}
                 </motion.div>
             </motion.div>
             <HorizontalScroll />
             <div
-                className='bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-b from from-MainDark/0 to-MainDark/100'
+                className='bottom-0 left-0 right-0 h-[60vh] 4k:h-[40vh] bg-gradient-to-b from from-MainDark/0 to-MainDark/100'
             />
         </>
     )
 }
 
-const ProjectHeadingLetters = ({
-    className,
-    variants,
-    text,
-}) => {
-    return (
-        <motion.span
-            className={className}
-            variants={variants}
-        >
-            {text}
-        </motion.span>
-    )
-}
 export default Projects;
