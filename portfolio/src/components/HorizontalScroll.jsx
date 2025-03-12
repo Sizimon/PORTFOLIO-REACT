@@ -47,7 +47,7 @@ const HorizontalScroll = () => {
     });
     
     // const x = useTransform(scrollYProgress, [0, 1], ["1%", "-65.5%"]);
-    const x = useTransform(scrollYProgress, [0, cards.length], ["1.75%", `-${(cards.length - 1) * 100}%`]);
+    const x = useTransform(scrollYProgress, [0, cards.length], ["0%", `-${(cards.length - 1) * 100}%`]);
 
     const sectionHeight = `${100 * cards.length}vh`;
 
@@ -55,20 +55,10 @@ const HorizontalScroll = () => {
         // <section ref={targetRef} className="relative h-[300vh] bg-MainDark">
         <section ref={targetRef} className={`relative h-[${sectionHeight}] bg-MainDark`}>
             <div className="sticky top-0 flex items-center overflow-hidden bg-MainLight h-screen">
-                <motion.div style={{ x }} className="flex gap-6">
-                    {cards.map((card, index) => {
-                        const opacity = useTransform(
-                            scrollYProgress,
-                            [
-                                (index - 1) / (cards.length - 1),
-                                (index - 0.5) / (cards.length - 1),
-                                index / (cards.length - 1),
-                                (index + 0.5) / (cards.length - 1),
-                                (index + 1) / (cards.length -1)
-                            ],
-                            [0, 1, 1, 1, 0]);
+                <motion.div style={{ x }} className="flex">
+                    {cards.map((card) => {
                         return (
-                            <motion.div key={card.id} style={{ opacity }} className="w-[90vw] h-[90vh] xs:h-[80vh]">
+                            <motion.div key={card.id}  className="w-[100vw] h-[90vh] xs:h-[80vh]">
                                 <ProjectCard title={card.title} summary={card.summary} description={card.description} images={card.images} />
                             </motion.div>
                         )
@@ -98,15 +88,14 @@ const ProjectCard = ({
         autoplaySpeed: 3000,
     }
 
-
     return (
         <div 
         key={id}
-        className='flex flex-col justify-center group relative h-full w-[90vw] overflow-hidden bg-MainDark whitespace-pre-line rounded-none 4k:rounded-3xl'
+        className='flex flex-col justify-center group relative h-full w-[101vw] overflow-hidden bg-MainDark whitespace-pre-line 4k:rounded-3xl'
         >
             <div className="flex flex-col items-center pb-0 4k:pb-[10vh]">
                 <h1 className='text-2xl xs:text-4xl md:text-5xl 4k:text-9xl text-MainLight font-Anton pt-[2vh]'>{title}</h1>
-                <p className='text-MainLight font-WorkSans text-sm xs:text-lg md:text-2xl 4k:text-6xl'>{summary}</p>
+                <p className='text-MainLight font-WorkSans px-4 text-center text-sm xs:text-lg md:text-2xl 4k:text-6xl'>{summary}</p>
             </div>
             <div className="grid grid-cols-1 ap:grid-cols-2 pt-0 md:pt-10 4k:px-[5%] 4k:gap-32">
                 <div className="m-auto p-4 pb-12 md:px-6 md:pb-10 w-full justify-center items-center">

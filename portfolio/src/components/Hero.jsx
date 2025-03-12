@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { motion, useScroll } from 'framer-motion';
-import { FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaJs } from "react-icons/fa6"
+import { motion } from 'framer-motion';
+
+import { FaReact, FaNode, FaJs, FaAws, FaDocker } from "react-icons/fa6"
+import { DiPostgresql } from "react-icons/di"
+import { IoCaretDown } from 'react-icons/io5'
 
 /* MAIN SECTION */
 
@@ -45,12 +48,20 @@ const Hero = () => {
         <div
             className="relative w-full p-0 bg-MainDark 4k:flex 4k:flex-col h-[250vh] xs:h-[200vh] ap:h-[225vh] 4k:h-[125vh] z-0"
         >
-            <div className='mb-[46vh] pt-[46vh] 4k:pt-[20vh] 4k:mb-[10vh]'>
+            <div className='flex flex-col mb-[40vh] pt-[40vh] 4k:pt-[20vh] 4k:mb-[10vh]'>
                 <h1 className='text-MainLight font-WorkSans uppercase text-3xl 4k:text-9xl text-center m-auto'>Szymon Samus</h1>
                 <Typewriter subheading={subheading} />
+                <ParallaxDescription
+                text="I am a Junior Software Developer with a passion for bringing ideas to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
+                className="font-WorkSans text-MainLight text-lg md:text-2xl 4k:text-6xl text-center pt-6 px-8 md:px-32"
+                />
+                {/* <div className='flex flex-row justify-center items-center mx-auto pt-6 w-60'>
+                    <IoCaretDown className='text-MainLight text-2xl 4k:textp7xl text-center'/>
+                    <h3 className='cursor-pointer text-MainLight font-Anton uppercase text-2xl 4k:text-7xl text-center m-auto transition delay-50 duration-200 ease-in-out hover:scale-105'>Skip to projects</h3>
+                    <IoCaretDown className='text-MainLight text-2xl 4k:textp7xl text-center' />
+                </div> */}
             </div>
-            <div className='4k:flex 4k:flex-col 4k:justify-center 4k:items-center 4k:mx-auto 4k:w-[33vw] pt-[10vh]'>
-                <ParallaxAbout />
+            <div className='4k:flex 4k:flex-col 4k:justify-center 4k:items-center 4k:mx-auto 4k:w-[33vw]'>
                 <ParallaxTechStack />
             </div>
             <div
@@ -148,7 +159,7 @@ const ParallaxAbout = () => {
 
     return (
         <motion.div
-            className='flex flex-col items-center mx-auto px-4 pb-[5vh] 4k:pb-[10vh]'
+            className='flex flex-col items-center mx-auto px-8 md:px-32 pb-[5vh] 4k:pb-[10vh]'
         >
             <ParallaxHeader
                 text="About"
@@ -287,46 +298,53 @@ const ParallaxTechStack = () => {
             <motion.section className='flex flex-col justify-center text-center p-2'>
                 <ParallaxTechHeader
                     text="My Technologies"
-                    className="font-Anton text-MainLight uppercase text-5xl md:text-6xl 4k:text-9xl tracking-wider pb-10"
+                    className="font-Anton text-MainLight uppercase text-4xl md:text-6xl 4k:text-9xl tracking-wider pb-10"
                 />
                 <motion.div
                     variants={gridVariants}
                     initial="hidden"
                     whileInView="show"
                     viewport={{
+                        margin: '-150px',
                         once: true,
                     }}
-                    className='grid grid-cols-5 gap-4'
+                    className='grid grid-cols-3 md:grid-cols-6 gap-12'
                 >
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-6xl md:text-7xl 4k:text-9xl text-MainLight'
-                    >
-                        <FaHtml5 />
-                    </motion.span>
-                    <motion.span
-                        variants={gridItemVariants}
-                        className='text-6xl md:text-7xl 4k:text-9xl text-MainLight'
-                    >
-                        <FaCss3Alt />
-                    </motion.span>
-                    <motion.span
-                        variants={gridItemVariants}
-                        className='text-6xl md:text-7xl 4k:text-9xl text-MainLight'
+                        className='flex justify-center items-center text-6xl md:text-7xl 4k:text-9xl text-MainLight'
                     >
                         <FaJs />
                     </motion.span>
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-6xl md:text-7xl 4k:text-9xl text-MainLight'
+                        className='flex justify-center items-center text-6xl md:text-7xl 4k:text-9xl text-MainLight'
                     >
                         <FaReact />
                     </motion.span>
                     <motion.span
                         variants={gridItemVariants}
-                        className='text-6xl md:text-7xl 4k:text-9xl text-MainLight'
+                        className='flex justify-center items-center text-6xl md:text-7xl 4k:text-9xl text-MainLight'
                     >
-                        <FaNodeJs />
+                        <FaNode />
+                    </motion.span>
+                    <motion.span
+                        variants={gridItemVariants}
+                        className='flex justify-center items-center text-6xl md:text-7xl 4k:text-9xl text-MainLight'
+                    >
+                        <FaAws />
+                    </motion.span>
+                    <motion.span
+                        variants={gridItemVariants}
+                        className='flex justify-center items-center text-6xl md:text-7xl 4k:text-9xl text-MainLight'
+                    >
+                        <FaDocker />
+                    </motion.span>
+                    <motion.span
+                        variants={gridItemVariants}
+                        className='flex justify-center items-center text-6xl md:text-7xl 4k:text-9xl text-MainLight'
+                    >
+                        <DiPostgresql />
                     </motion.span>
                 </motion.div>
             </motion.section>
