@@ -13,7 +13,7 @@ services:
     image: shhmon/bot-dashboard:latest
     container_name: bot-dashboard
     ports:
-      - "5002:5002"
+      - "5002:5000"
     environment:
       - NODE_ENV=production
     depends_on:
