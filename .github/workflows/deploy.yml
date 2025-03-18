@@ -18,8 +18,4 @@ jobs:
 
       - name: Deploy services
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} << 'EOF'
-          cd /home/ec2-user/PORTFOLIO-REACT
-          docker-compose pull
-          docker-compose up -d
-          EOF
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} "cd /home/ec2-user/PORTFOLIO-REACT && docker-compose pull && docker-compose up -d"
