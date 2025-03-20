@@ -65,11 +65,6 @@ const ProjectHeadingLetters = ({ variants, className, text, duration }) => (
 );
 
 const Projects = () => {
-    // const overlayRef = useRef(null)
-    // const isInView = useInView(overlayRef, { once: true })
-    // useEffect(() => {
-    //     console.log("In view:", isInView)
-    // }, [isInView])
     function randomIntFromInterval(min, max) { // min and max included 
         return Math.floor(Math.random() * (max - min + 1) + min);
     };

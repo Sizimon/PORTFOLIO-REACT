@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Taskmanager_1 from '../assets/image/Taskmanager.png';
 import Taskmanager_2 from '../assets/image/Taskmanager_2.png';
 import Taskmanager_3 from '../assets/image/Taskmanager_3.png';
@@ -53,31 +53,36 @@ const HorizontalScroll = () => {
         setSelectedImage(null);
         document.body.classList.remove('no-scroll');
     };
-    // END IMAGE MODAL OPTIONS
+    //     // END IMAGE MODAL OPTIONS
 
-    // CARDS HORIZONTAL SCROLL SETTINGS
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
     const x = useTransform(
-        scrollYProgress,
-        [0, cards.length],
+        scrollYProgress, 
+        [0, cards.length], 
         ["0%", `-${(cards.length - 1) * 100}%`]
     );
 
     const sectionHeight = `${100 * cards.length}vh`;
 
-    // END CARDS HORIZONTAL SCROLL SETTINGS
+    useEffect(() => {
+        if (targetRef.current) {
+            console.log("Section height:", targetRef.current.offsetHeight);
+        }
+    }, [targetRef]);
 
     return (
         <>
-            <section ref={targetRef} className={`relative h-[${sectionHeight}] bg-MainDark`}>
-                <div
-                    className="sticky top-0 flex items-center overflow-hidden bg-MainLight h-screen scroll-smooth">
+            <section 
+                ref={targetRef} 
+                className='relative bg-MainDark'
+                style={{ height: sectionHeight }}
+            >
+                <div className="sticky top-0 flex items-center overflow-hidden bg-MainLight h-screen">
                     <motion.div style={{ x }} className="flex">
-
                         {cards.map((card) => {
                             return (
                                 <motion.div key={card.id} className="w-[100vw] h-[90vh] xs:h-[80vh]">
@@ -85,11 +90,11 @@ const HorizontalScroll = () => {
                                 </motion.div>
                             )
                         })}
-
                     </motion.div>
                 </div>
             </section>
-            {/* ANIMATED IMAGE MODAL */}
+
+            {/* IMAGE MODALS */}
             <AnimatePresence>
                 {selectedImage && (
                     <motion.div
@@ -112,7 +117,7 @@ const HorizontalScroll = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            {/* END ANIMATED IMAGE MODAL */}
+            {/* END IMAGE MODALS */}
         </>
     )
 };
@@ -124,8 +129,6 @@ const HorizontalScroll = () => {
 const ProjectCard = ({
     title, description, id, summary, images, handleImageClick
 }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
-
     const settings = {
         arrows: false,
         dots: true,
@@ -154,8 +157,8 @@ const ProjectCard = ({
                                 <img
                                     src={image}
                                     alt=""
-                                    className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto scale-[90%] transition delay-75 duration-200 ease-in-out hover:scale-100"
-                                    onClick={() => handleImageClick(image)} />
+                                    onClick={() => handleImageClick(image)}
+                                    className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto scale-[90%] transition delay-75 duration-200 ease-in-out hover:scale-100" />
                             </div>
                         ))}
                     </Slider>
