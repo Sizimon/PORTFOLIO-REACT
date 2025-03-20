@@ -36,6 +36,8 @@ const cards = [
     },
 ]
 
+console.log("Cards data", cards);
+
 /* END */
 
 /* HORIZONTAL SCROLL SECTION */
@@ -45,11 +47,13 @@ const HorizontalScroll = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const handleImageClick = (image) => {
+        console.log("Image clicked:", image);
         setSelectedImage(image);
         document.body.classList.add('no-scroll');
     };
 
     const handleImageClose = () => {
+        console.log("Modal closed");
         setSelectedImage(null);
         document.body.classList.remove('no-scroll');
     };
