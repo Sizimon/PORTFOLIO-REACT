@@ -21,6 +21,10 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      - name: Build and Push Docker Image
+        run: | 
+          docker buildx build --platform linux/amd64 -t shhmon/my-react-app:latest --push .
+
       - name: Deploy services
         run: |
           ssh -i ec2-key.pem -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} "
