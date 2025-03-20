@@ -6,3 +6,9 @@
 .slick-dots li.slick-active button:before {
     color: #697565; 
 }
+
+/* PREVENT SCROLL */
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}

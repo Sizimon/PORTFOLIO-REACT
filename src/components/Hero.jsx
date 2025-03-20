@@ -53,7 +53,7 @@ const Hero = () => {
                 <Typewriter subheading={subheading} />
                 <ParallaxDescription
                 text="I am a Junior Software Developer with a passion for bringing ideas to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
-                className="font-WorkSans text-MainLight text-lg md:text-2xl 4k:text-6xl text-center pt-6 px-8 md:px-32"
+                className="font-WorkSans text-MainLight text-lg md:text-2xl 4k:text-6xl text-center pt-6 px-8 md:px-96"
                 />
                 {/* <div className='flex flex-row justify-center items-center mx-auto pt-6 w-60'>
                     <IoCaretDown className='text-MainLight text-2xl 4k:textp7xl text-center'/>
@@ -167,7 +167,7 @@ const ParallaxAbout = () => {
             />
             <ParallaxDescription
                 text="I am a Junior Software Developer with a passion for bringing ideas to life. Constantly staying updated on the latest trends and eager to contribute to innovative projects."
-                className="font-WorkSans text-MainLight text-lg md:text-2xl 4k:text-6xl text-center"
+                // className="font-WorkSans text-MainLight text-lg md:text-2xl 4k:text-6xl text-center"
             />
         </motion.div>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
-import { useRef, useState, useEffect } from "react";
-import { motion , useScroll , useTransform} from "framer-motion";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import Taskmanager_1 from '../assets/image/Taskmanager.png';
 import Taskmanager_2 from '../assets/image/Taskmanager_2.png';
 import Taskmanager_3 from '../assets/image/Taskmanager_3.png';
@@ -21,7 +21,7 @@ const cards = [
         description: 'InTimeTasks is a Full-Stack Task Manager web app which allows users to create and manage tasks over any designated period of time. The app is built using React, Node.js, Express, and PostgtreSQL. \n \n The app allows users to create tasks, set deadlines, mark tasks as complete and other interesting features. The app also allows users to view tasks by day, week, or month. The app is fully responsive, can be used on any device and is hosted on Heroku.',
         images: [Taskmanager_1, Taskmanager_2, Taskmanager_3],
         github: ''
-    }, 
+    },
     {
         id: 2,
         title: 'GuildTracker Bot',
@@ -41,32 +41,79 @@ const cards = [
 /* HORIZONTAL SCROLL SECTION */
 
 const HorizontalScroll = () => {
+    // IMAGE MODAL OPTIONS
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageClick = (image) => {
+        setSelectedImage(image);
+        document.body.classList.add('no-scroll');
+    };
+
+    const handleImageClose = () => {
+        setSelectedImage(null);
+        document.body.classList.remove('no-scroll');
+    };
+    // END IMAGE MODAL OPTIONS
+
+    // CARDS HORIZONTAL SCROLL SETTINGS
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
-    
-    // const x = useTransform(scrollYProgress, [0, 1], ["1%", "-65.5%"]);
-    const x = useTransform(scrollYProgress, [0, cards.length], ["0%", `-${(cards.length - 1) * 100}%`]);
+
+    const x = useTransform(
+        scrollYProgress,
+        [0, cards.length],
+        ["0%", `-${(cards.length - 1) * 100}%`]
+    );
 
     const sectionHeight = `${100 * cards.length}vh`;
 
+    // END CARDS HORIZONTAL SCROLL SETTINGS
+
     return (
-        // <section ref={targetRef} className="relative h-[300vh] bg-MainDark">
-        <section ref={targetRef} className={`relative h-[${sectionHeight}] bg-MainDark`}>
-            <div className="sticky top-0 flex items-center overflow-hidden bg-MainLight h-screen">
-                <motion.div style={{ x }} className="flex">
-                    {cards.map((card) => {
-                        return (
-                            <motion.div key={card.id}  className="w-[100vw] h-[90vh] xs:h-[80vh]">
-                                <ProjectCard title={card.title} summary={card.summary} description={card.description} images={card.images} />
-                            </motion.div>
-                        )
-                        // <ProjectCard key={card.id} title={card.title} summary={card.summary} description={card.description} url={card.url} />
-                    })}
-                </motion.div>
-            </div>
-        </section>
+        <>
+            <section ref={targetRef} className={`relative h-[${sectionHeight}] bg-MainDark`}>
+                <div
+                    className="sticky top-0 flex items-center overflow-hidden bg-MainLight h-screen scroll-smooth">
+                    <motion.div style={{ x }} className="flex">
+
+                        {cards.map((card) => {
+                            return (
+                                <motion.div key={card.id} className="w-[100vw] h-[90vh] xs:h-[80vh]">
+                                    <ProjectCard title={card.title} summary={card.summary} description={card.description} images={card.images} handleImageClick={handleImageClick} />
+                                </motion.div>
+                            )
+                        })}
+
+                    </motion.div>
+                </div>
+            </section>
+            {/* ANIMATED IMAGE MODAL */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        className='fixed inset-0 flex items-center justify-center bg-MainDark bg-opacity-75 z-50'
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={handleImageClose}
+                    >
+                        <motion.img
+                            src={selectedImage}
+                            alt='Full size'
+                            className='rounded-lg shadow-lg w-[80vw] h-[80vh] object-cover'
+                            initial={{ scale: 0.8 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0.8 }}
+                        >
+
+                        </motion.img>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+            {/* END ANIMATED IMAGE MODAL */}
+        </>
     )
 };
 
@@ -75,8 +122,10 @@ const HorizontalScroll = () => {
 /* PROJECT CARD COMPONENT (MAPPED IN HORIZONTAL SECTION) */
 
 const ProjectCard = ({
-    title, description, id, summary, images
+    title, description, id, summary, images, handleImageClick
 }) => {
+    const [selectedImage, setSelectedImage] = useState(null);
+
     const settings = {
         arrows: false,
         dots: true,
@@ -89,9 +138,9 @@ const ProjectCard = ({
     }
 
     return (
-        <div 
-        key={id}
-        className='flex flex-col justify-center group relative h-full w-[101vw] overflow-hidden bg-MainDark whitespace-pre-line 4k:rounded-3xl'
+        <div
+            key={id}
+            className='flex flex-col justify-center group relative h-full w-[101vw] overflow-hidden bg-MainDark whitespace-pre-line 4k:rounded-3xl'
         >
             <div className="flex flex-col items-center pb-0 4k:pb-[10vh]">
                 <h1 className='text-2xl xs:text-4xl md:text-5xl 4k:text-9xl text-MainLight font-Anton pt-[2vh]'>{title}</h1>
@@ -102,7 +151,11 @@ const ProjectCard = ({
                     <Slider {...settings}>
                         {images.map((image, index) => (
                             <div key={index}>
-                                <img src={image} alt="" className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto scale-[90%] transition delay-75 duration-200 ease-in-out hover:scale-100" />
+                                <img
+                                    src={image}
+                                    alt=""
+                                    className="h-auto max-h-[300px] 4k:max-h-[2000px] w-auto max-w-full object-contain mx-auto scale-[90%] transition delay-75 duration-200 ease-in-out hover:scale-100"
+                                    onClick={() => handleImageClick(image)} />
                             </div>
                         ))}
                     </Slider>
@@ -111,17 +164,17 @@ const ProjectCard = ({
                     <p className='text-MainLight font-WorkSans text-[10px] xs:text-sm md:text-xl 4k:text-5xl'>{description}</p>
                     <div className='flex flex-row justify-center pt-10 4k:pt-[5vh] md:pt-4 text-center'>
                         <button
-                        className='flex flex-row p-1 gap-2 4k:gap-6  rounded-md text-MainDark bg-MainLight mr-5'
+                            className='flex flex-row p-1 gap-2 4k:gap-6  rounded-md text-MainDark bg-MainLight mr-5'
                         >
                             <FaGithub className="h-6 w-6 xs:h-8 xs:w-8 4k:h-24 4k:w-24 text-MainDark" />
                             <p className="self-center text-xs xs:text-base 4k:text-5xl">GitHub</p>
-                        </button> 
+                        </button>
                         <button
-                        className='flex flex-row p-1 gap-2 4k:gap-6 rounded-md text-MainDark bg-MainLight ml-5'
+                            className='flex flex-row p-1 gap-2 4k:gap-6 rounded-md text-MainDark bg-MainLight ml-5'
                         >
                             <FaGlobe className="h-6 w-6 xs:h-8 xs:w-8 4k:h-24 4k:w-24 text-MainDark" />
                             <p className="self-center text-xs xs:text-base 4k:text-5xl">View</p>
-                        </button> 
+                        </button>
                     </div>
                 </div>
             </div>
